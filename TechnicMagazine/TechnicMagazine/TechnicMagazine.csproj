@@ -64,6 +64,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Components\ProductUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -90,8 +94,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HardwareMagazineModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Components\partial classes\Product.cs" />
     <Compile Include="Components\Product.cs">
       <DependentUpon>HardwareMagazineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Components\ProductUserControl.xaml.cs">
+      <DependentUpon>ProductUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\sysdiagrams.cs">
       <DependentUpon>HardwareMagazineModel.tt</DependentUpon>
@@ -146,9 +154,14 @@
       <DependentUpon>HardwareMagazineModel.edmx</DependentUpon>
       <LastGenOutput>HardwareMagazineModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Diagramma.png" />
+    <Resource Include="Images\Telegka.png" />
+    <Resource Include="Images\Red_star.png" />
+    <Resource Include="Images\Heart.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

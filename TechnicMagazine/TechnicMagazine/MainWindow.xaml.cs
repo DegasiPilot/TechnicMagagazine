@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TechnicMagazine.Components;
 
 namespace TechnicMagazine
 {
@@ -31,6 +32,22 @@ namespace TechnicMagazine
             //    var imageByte = File.ReadAllBytes(fullPath);
             //    item.MainImage = imageByte;
             //}
+            Random random = new Random();
+            var products = App.db.Product.ToList();
+            foreach (var product in products)
+            {
+                ProductWrapPanel.Children.Add(
+                    new ProductUserControl(
+                    new Image(),
+                    product.Title,
+                    (4 + random.NextDouble()).ToString("0"),
+                    random.Next(1, 10) + " отзывов",
+                    product.Cost.ToString(),
+                    product.CostWithDiscount.ToString(),
+                    product.CostVisiblity
+                    )
+                );
+            }
         }
     }
 }

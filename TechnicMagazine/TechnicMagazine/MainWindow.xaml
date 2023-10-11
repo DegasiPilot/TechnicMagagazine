@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" Grid.Row="1" Margin="15 0 5 0">
+            <WrapPanel x:Name="ProductWrapPanel">
+
+            </WrapPanel>
+        </ScrollViewer>
     </Grid>
 </Window>
