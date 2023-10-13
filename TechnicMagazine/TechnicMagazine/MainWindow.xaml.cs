@@ -38,11 +38,10 @@ namespace TechnicMagazine
             {
                 ProductWrapPanel.Children.Add(
                     new ProductUserControl(
-                    new Image(),
                     product.Title,
-                    (4 + random.NextDouble()).ToString("0"),
-                    random.Next(1, 10) + " отзывов",
-                    product.Cost.ToString(),
+                    $"{product.AvgOcenka : 0.00}",
+                    product.KolvoOtziv + " отзывов",
+                    $"{product.Cost : 0.00}",
                     product.CostWithDiscount.ToString(),
                     product.CostVisiblity
                     )

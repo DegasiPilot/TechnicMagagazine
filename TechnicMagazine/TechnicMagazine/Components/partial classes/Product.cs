@@ -14,9 +14,9 @@ namespace TechnicMagazine.Components
             get 
             {
                 if (Discount == 0)
-                    return $"{Cost} р.";
+                    return $"{Cost : 0.00} р.";
                 else
-                    return $"{Cost - Cost * (decimal)Discount} р.";
+                    return $"{(Cost - Cost * (decimal)Discount) : 0.00} р.";
             }
         }
 
@@ -43,6 +43,33 @@ namespace TechnicMagazine.Components
                     return null;
                 else
                     return $"* скидка {Discount * 100}%";
+            }
+        }
+
+        public double AvgOcenka
+        {
+            get
+            {
+                var feedBacks = App.db.Feedback.Where(x => x.ProductId == Id).ToList();
+                double sum = 0;
+                int i = 0;
+                foreach(var feedback in feedBacks)
+                {
+                    sum += feedback.Evaluation;
+                    i++;
+                }
+                if (i == 0)
+                    return 0;
+                else
+                    return sum / i;
+            }
+        }
+
+        public int KolvoOtziv
+        {
+            get
+            {
+                return App.db.Feedback.Where(x => x.ProductId == Id).Count();
             }
         }
     }
