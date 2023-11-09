@@ -51,17 +51,10 @@ namespace TechnicMagazine.Components
             get
             {
                 var feedBacks = App.db.Feedback.Where(x => x.ProductId == Id).ToList();
-                double sum = 0;
-                int i = 0;
-                foreach(var feedback in feedBacks)
-                {
-                    sum += feedback.Evaluation;
-                    i++;
-                }
-                if (i == 0)
+                if (feedBacks.Count == 0)
                     return 0;
                 else
-                    return sum / i;
+                    return feedBacks.Average(x => x.Evaluation);
             }
         }
 

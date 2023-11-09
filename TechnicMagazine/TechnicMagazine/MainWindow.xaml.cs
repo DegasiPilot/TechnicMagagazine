@@ -25,28 +25,61 @@ namespace TechnicMagazine
         public MainWindow()
         {
             InitializeComponent();
-            //var path = @"C:\Users\222119\Downloads\Задание магазин техники\";
-            //foreach (var item in App.db.Product.ToArray())
-            //{
-            //    var fullPath = path + item.MainImagePath.Trim();
-            //    var imageByte = File.ReadAllBytes(fullPath);
-            //    item.MainImage = imageByte;
-            //}
-            Random random = new Random();
-            var products = App.db.Product.ToList();
+            Refresh_Filter(null, null);
+        }
+
+        private void Refresh_Filter(object sender, RoutedEventArgs e)
+        {
+            IEnumerable<Product> products = App.db.Product;
+            switch (SortCb.SelectedIndex)
+            {
+                case 0:
+                    break;
+                case 1:
+                    products = products.OrderBy(x => x.CostWithDiscount);
+                    break;
+                case 2:
+                    products = products.OrderByDescending(x => x.CostWithDiscount);
+                    break;
+            }
+
+            switch (DiscountFilterCb.SelectedIndex)
+            {
+                case 0:
+                    break;
+                case 1:
+                    products = products.Where(x => x.Discount >= 0 && x.Discount < 0.05);
+                    break;
+                case 2:
+                    products = products.Where(x => x.Discount >= 0.05 && x.Discount < 0.15);
+                    break;
+                case 3:
+                    products = products.Where(x => x.Discount >= 0.15 && x.Discount < 0.30);
+                    break;
+                case 4:
+                    products = products.Where(x => x.Discount >= 0.30 && x.Discount < 0.70);
+                    break;
+                case 5:
+                    products = products.Where(x => x.Discount >= 0.70 && x.Discount < 0.100);
+                    break;
+            }
+
+            string searchText = SearchTb.Text.ToLower();
+            if (searchText != "")
+            {
+                products = products.Where(x => x.Title.ToLower().Contains(searchText) || x.Description.ToLower().Contains(searchText));
+            }
+
+            ProductWrapPanel.Children.Clear();
             foreach (var product in products)
             {
                 ProductWrapPanel.Children.Add(
-                    new ProductUserControl(
-                    product.Title,
-                    $"{product.AvgOcenka : 0.00}",
-                    product.KolvoOtziv + " отзывов",
-                    $"{product.Cost : 0.00}",
-                    product.CostWithDiscount.ToString(),
-                    product.CostVisiblity
-                    )
+                    new ProductUserControl(product)
                 );
             }
+            KolvoProductovTb.Text = products.Count() + " из " + App.db.Product.Count();
         }
+
+        
     }
 }

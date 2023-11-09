@@ -20,15 +20,31 @@ namespace TechnicMagazine.Components
     /// </summary>
     public partial class ProductUserControl : UserControl
     {
-        public ProductUserControl(string Title, string Evaluation, string KolvoOtziv,string cost, string CostWithDiscount, Visibility costTbVisibility)
+        Product product;
+
+        public ProductUserControl(Product product)
         {
             InitializeComponent();
-            TitleTb.Text = Title;
-            OcenkaTb.Text = Evaluation;
-            OtziviTb.Text = KolvoOtziv;
-            CostTb.Text = cost;
-            CostWithDiscountTb.Text = CostWithDiscount;
-            CostTb.Visibility = costTbVisibility;
+            this.product = product;
+            TitleTb.Text = product.Title;
+            OcenkaTb.Text = $"{product.AvgOcenka: 0.00}";
+            OtziviTb.Text = product.KolvoOtziv + " отзывов";
+            CostTb.Text = $"{product.Cost: 0.00}";
+            CostWithDiscountTb.Text = product.CostWithDiscount;
+            CostTb.Visibility = product.CostVisiblity;
+        }
+
+        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (product.Feedback != null)
+            {
+                MessageBox.Show("Удаление запрещено");
+            }
+            else
+            {
+                App.db.Product.Remove(product);
+                App.db.SaveChanges();
+            }
         }
     }
 }

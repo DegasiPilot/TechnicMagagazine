@@ -154,6 +154,7 @@
       <DependentUpon>HardwareMagazineModel.edmx</DependentUpon>
       <LastGenOutput>HardwareMagazineModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Musorka.png" />
     <Resource Include="Images\imagethree.jpg" />
     <Resource Include="Images\Diagramma.png" />
     <Resource Include="Images\Telegka.png" />
