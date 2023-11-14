@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LanguageSchool.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TechnicMagazine.Pages;
 
 namespace TechnicMagazine.Components
 {
@@ -32,6 +34,13 @@ namespace TechnicMagazine.Components
             CostTb.Text = $"{product.Cost: 0.00}";
             CostWithDiscountTb.Text = product.CostWithDiscount;
             CostTb.Visibility = product.CostVisiblity;
+            ProductGrid.Background = product.DiscountBrush;
+            if (App.IsAdmin == false)
+            {
+                RedactBtn.Visibility = Visibility.Hidden;
+                DeleteBtn.Visibility = Visibility.Hidden;
+            }
+            this.DataContext = product;
         }
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
@@ -44,7 +53,18 @@ namespace TechnicMagazine.Components
             {
                 App.db.Product.Remove(product);
                 App.db.SaveChanges();
+                MyNavigation.BackPage();
             }
+        }
+
+        private void RedactBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MyNavigation.NextPage(new PageComponent(new AddEditProductPage(product), "Редактировать продукт"));
+        }
+
+        private void KorzinaBtn_Click(object sender, RoutedEventArgs e)
+        {
+            App.ProdList.KorzinaWp.Children.Add(new ProductZakazUC(product));
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace TechnicMagazine.Components
 {
@@ -17,6 +18,14 @@ namespace TechnicMagazine.Components
                     return $"{Cost : 0.00} р.";
                 else
                     return $"{(Cost - Cost * (decimal)Discount) : 0.00} р.";
+            }
+        }
+
+        public double FinalCost
+        {
+            get
+            {
+                return Convert.ToDouble(Cost - Cost * (decimal)Discount);
             }
         }
 
@@ -63,6 +72,19 @@ namespace TechnicMagazine.Components
             get
             {
                 return App.db.Feedback.Where(x => x.ProductId == Id).Count();
+            }
+        }
+
+        public Brush DiscountBrush
+        {
+            get
+            {
+                if (Discount != 0)
+                {
+                    return Brushes.PaleGreen;
+                }
+                else
+                    return Brushes.White;
             }
         }
     }

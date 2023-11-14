@@ -5,7 +5,9 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using TechnicMagazine.Components;
+using TechnicMagazine.Pages;
 
 namespace TechnicMagazine
 {
@@ -15,5 +17,8 @@ namespace TechnicMagazine
     public partial class App : Application
     {
         public static HardwareShopEntities db = new HardwareShopEntities();
+        public static bool IsAdmin = false;
+        public static ProductListPage ProdList;
+        public static WrapPanel KorzinaWp;
     }
 }

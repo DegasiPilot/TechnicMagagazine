@@ -28,5 +28,7 @@ namespace TechnicMagazine.Components
         public virtual DbSet<Feedback> Feedback { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Product_Zakaz> Product_Zakaz { get; set; }
+        public virtual DbSet<Zakaz> Zakaz { get; set; }
     }
 }

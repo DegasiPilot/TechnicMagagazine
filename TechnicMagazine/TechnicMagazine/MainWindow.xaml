@@ -8,36 +8,22 @@
         Title="MainWindow" Height="720" Width="1080">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="18*"></RowDefinition>
-            <RowDefinition Height="145*"></RowDefinition>
-            <RowDefinition Height="13*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="43*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Height="36" Width="918">
-            <TextBlock Margin="5" FontSize="20">По цене</TextBlock>
-            <ComboBox x:Name="SortCb" SelectionChanged="Refresh_Filter" Margin="5" Width="150">
-                <ComboBoxItem>По умолчанию</ComboBoxItem>
-                <ComboBoxItem>По возрастанию</ComboBoxItem>
-                <ComboBoxItem>По убыванию</ComboBoxItem>
-            </ComboBox>
-            <TextBlock Margin="5" FontSize="20">По скидке</TextBlock>
-            <ComboBox Margin="5" x:Name="DiscountFilterCb" SelectionChanged="Refresh_Filter">
-                <ComboBoxItem>Все</ComboBoxItem>
-                <ComboBoxItem>от 0 до 5%</ComboBoxItem>
-                <ComboBoxItem>от 5 до 15%</ComboBoxItem>
-                <ComboBoxItem>от 15 до 30%</ComboBoxItem>
-                <ComboBoxItem>от 30 до 70%</ComboBoxItem>
-                <ComboBoxItem>от 70 до 100%</ComboBoxItem>
-            </ComboBox>
-            <TextBlock Margin="5" FontSize="20">По названию и описанию</TextBlock>
-            <TextBox Margin="5" x:Name="SearchTb" TextChanged="Refresh_Filter" FontSize="14"></TextBox>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="107*"/>
+            <ColumnDefinition Width="973*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock x:Name="TitleTb" FontSize="20"></TextBlock>
         </StackPanel>
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled" Margin="0,72,0,0" Grid.RowSpan="2">
-            <WrapPanel x:Name="ProductWrapPanel" HorizontalAlignment="Center">
-            </WrapPanel>
-        </ScrollViewer>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" Height="36">
-            <Button x:Name="AddBtn" Click="AddBtn_Click" FontSize="20" Margin="5 0">Добавить</Button>
-            <TextBlock x:Name="KolvoProductovTb" Margin="15 0" Width="100"></TextBlock>
+        <StackPanel VerticalAlignment="Center" Grid.Row="1">
+            <PasswordBox x:Name="AdminPb" Margin="0 5"></PasswordBox>
+            <Button Margin="0" Click="AdminButton_Click" x:Name="AdminBtn">
+                <TextBlock TextWrapping="Wrap" TextAlignment="Center" x:Name="AdminBtnText">Вкл. режим администратора</TextBlock>
+            </Button>
         </StackPanel>
+        <Frame x:Name="MainFrame" Grid.Column="1" NavigationUIVisibility="Hidden" Grid.Row="1"></Frame>
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LanguageSchool.Components;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TechnicMagazine.Components;
+using TechnicMagazine.Pages;
 
 namespace TechnicMagazine
 {
@@ -25,61 +27,42 @@ namespace TechnicMagazine
         public MainWindow()
         {
             InitializeComponent();
-            Refresh_Filter(null, null);
+            MyNavigation.mainWindow = this;
+            //var path = @"C:\Users\222119\Downloads\";
+            //foreach (var item in App.db.Product.ToArray())
+            //{
+            //    var fullPath = path + item.MainImagePath.Trim();
+            //    var imageByte = File.ReadAllBytes(fullPath);
+            //    item.MainImage = imageByte;
+            //}
+            MyNavigation.NextPage(new PageComponent(new ProductListPage(), "Список продуктов"));
         }
 
-        private void Refresh_Filter(object sender, RoutedEventArgs e)
+        private void AdminButton_Click(object sender, RoutedEventArgs e)
         {
-            IEnumerable<Product> products = App.db.Product;
-            switch (SortCb.SelectedIndex)
+            if (App.IsAdmin)
             {
-                case 0:
-                    break;
-                case 1:
-                    products = products.OrderBy(x => x.CostWithDiscount);
-                    break;
-                case 2:
-                    products = products.OrderByDescending(x => x.CostWithDiscount);
-                    break;
+                App.IsAdmin = false;
+                AdminBtnText.Text = "Вкл. режим администратора";
+                MyNavigation.ClearStory();
+                MyNavigation.NextPage(new PageComponent(new ProductListPage(), "Список продуктов"));
+                
             }
-
-            switch (DiscountFilterCb.SelectedIndex)
+            else
             {
-                case 0:
-                    break;
-                case 1:
-                    products = products.Where(x => x.Discount >= 0 && x.Discount < 0.05);
-                    break;
-                case 2:
-                    products = products.Where(x => x.Discount >= 0.05 && x.Discount < 0.15);
-                    break;
-                case 3:
-                    products = products.Where(x => x.Discount >= 0.15 && x.Discount < 0.30);
-                    break;
-                case 4:
-                    products = products.Where(x => x.Discount >= 0.30 && x.Discount < 0.70);
-                    break;
-                case 5:
-                    products = products.Where(x => x.Discount >= 0.70 && x.Discount < 0.100);
-                    break;
+                if (AdminPb.Password == "0000")
+                {
+                    App.IsAdmin = true;
+                    AdminBtnText.Text = "Выкл. режим администратора";
+                    AdminPb.Clear();
+                    MyNavigation.ClearStory();
+                    MyNavigation.NextPage(new PageComponent(new ProductListPage(), "Список продуктов"));
+                }
+                else
+                {
+                    MessageBox.Show("Неправильный пароль!");
+                }
             }
-
-            string searchText = SearchTb.Text.ToLower();
-            if (searchText != "")
-            {
-                products = products.Where(x => x.Title.ToLower().Contains(searchText) || x.Description.ToLower().Contains(searchText));
-            }
-
-            ProductWrapPanel.Children.Clear();
-            foreach (var product in products)
-            {
-                ProductWrapPanel.Children.Add(
-                    new ProductUserControl(product)
-                );
-            }
-            KolvoProductovTb.Text = products.Count() + " из " + App.db.Product.Count();
         }
-
-        
     }
 }

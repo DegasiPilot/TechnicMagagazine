@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище HardwareShopModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище HardwareShopModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Feedback">
           <Key>
             <PropertyRef Name="Id" />
@@ -27,6 +27,15 @@
           <Property Name="MainImage" Type="varbinary(max)" />
           <Property Name="MainImagePath" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Product_Zakaz">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="ZakazId" Type="int" />
+          <Property Name="Kolvo" Type="int" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -36,6 +45,12 @@
           <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Zakaz">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <Association Name="FK_Feedback_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
@@ -49,17 +64,50 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Product_Zakaz_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Product_Zakaz" Type="Self.Product_Zakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product_Zakaz">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Zakaz_Zakaz">
+          <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="0..1" />
+          <End Role="Product_Zakaz" Type="Self.Product_Zakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product_Zakaz">
+              <PropertyRef Name="ZakazId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище HardwareShopModelContainer">
           <EntitySet Name="Feedback" EntityType="Self.Feedback" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product_Zakaz" EntityType="Self.Product_Zakaz" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zakaz" EntityType="Self.Zakaz" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Feedback_Product" Association="Self.FK_Feedback_Product">
             <End Role="Product" EntitySet="Product" />
             <End Role="Feedback" EntitySet="Feedback" />
           </AssociationSet>
+          <AssociationSet Name="FK_Product_Zakaz_Product" Association="Self.FK_Product_Zakaz_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Product_Zakaz" EntitySet="Product_Zakaz" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Zakaz_Zakaz" Association="Self.FK_Product_Zakaz_Zakaz">
+            <End Role="Zakaz" EntitySet="Zakaz" />
+            <End Role="Product_Zakaz" EntitySet="Product_Zakaz" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HardwareShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -86,6 +134,7 @@
           <Property Name="MainImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="MainImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Feedback" Relationship="Self.FK_Feedback_Product" FromRole="Product" ToRole="Feedback" />
+          <NavigationProperty Name="Product_Zakaz" Relationship="HardwareShopModel.FK_Product_Zakaz_Product" FromRole="Product" ToRole="Product_Zakaz" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -117,7 +166,59 @@
             <End Role="Product" EntitySet="Product" />
             <End Role="Feedback" EntitySet="Feedback" />
           </AssociationSet>
+          <EntitySet Name="Product_Zakaz" EntityType="HardwareShopModel.Product_Zakaz" />
+          <EntitySet Name="Zakaz" EntityType="HardwareShopModel.Zakaz" />
+          <AssociationSet Name="FK_Product_Zakaz_Product" Association="HardwareShopModel.FK_Product_Zakaz_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Product_Zakaz" EntitySet="Product_Zakaz" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Zakaz_Zakaz" Association="HardwareShopModel.FK_Product_Zakaz_Zakaz">
+            <End Role="Zakaz" EntitySet="Zakaz" />
+            <End Role="Product_Zakaz" EntitySet="Product_Zakaz" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Product_Zakaz">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="ZakazId" Type="Int32" />
+          <Property Name="Kolvo" Type="Int32" />
+          <NavigationProperty Name="Product" Relationship="HardwareShopModel.FK_Product_Zakaz_Product" FromRole="Product_Zakaz" ToRole="Product" />
+          <NavigationProperty Name="Zakaz" Relationship="HardwareShopModel.FK_Product_Zakaz_Zakaz" FromRole="Product_Zakaz" ToRole="Zakaz" />
+        </EntityType>
+        <EntityType Name="Zakaz">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Product_Zakaz" Relationship="HardwareShopModel.FK_Product_Zakaz_Zakaz" FromRole="Zakaz" ToRole="Product_Zakaz" />
+        </EntityType>
+        <Association Name="FK_Product_Zakaz_Product">
+          <End Type="HardwareShopModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="HardwareShopModel.Product_Zakaz" Role="Product_Zakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product_Zakaz">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Zakaz_Zakaz">
+          <End Type="HardwareShopModel.Zakaz" Role="Zakaz" Multiplicity="0..1" />
+          <End Type="HardwareShopModel.Product_Zakaz" Role="Product_Zakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zakaz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product_Zakaz">
+              <PropertyRef Name="ZakazId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -156,6 +257,23 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product_Zakaz">
+            <EntityTypeMapping TypeName="HardwareShopModel.Product_Zakaz">
+              <MappingFragment StoreEntitySet="Product_Zakaz">
+                <ScalarProperty Name="Kolvo" ColumnName="Kolvo" />
+                <ScalarProperty Name="ZakazId" ColumnName="ZakazId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zakaz">
+            <EntityTypeMapping TypeName="HardwareShopModel.Zakaz">
+              <MappingFragment StoreEntitySet="Zakaz">
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

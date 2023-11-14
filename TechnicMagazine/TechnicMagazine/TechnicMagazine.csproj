@@ -68,6 +68,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Components\ProductZakazUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -94,6 +98,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HardwareMagazineModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Components\MyNavigation.cs" />
     <Compile Include="Components\partial classes\Product.cs" />
     <Compile Include="Components\Product.cs">
       <DependentUpon>HardwareMagazineModel.tt</DependentUpon>
@@ -101,15 +106,38 @@
     <Compile Include="Components\ProductUserControl.xaml.cs">
       <DependentUpon>ProductUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\ProductZakazUC.xaml.cs">
+      <DependentUpon>ProductZakazUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Product_Zakaz.cs">
+      <DependentUpon>HardwareMagazineModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Components\sysdiagrams.cs">
+      <DependentUpon>HardwareMagazineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Zakaz.cs">
       <DependentUpon>HardwareMagazineModel.tt</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\AddEditProductPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ProductListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages\AddEditProductPage.xaml.cs">
+      <DependentUpon>AddEditProductPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ProductListPage.xaml.cs">
+      <DependentUpon>ProductListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -154,6 +182,7 @@
       <DependentUpon>HardwareMagazineModel.edmx</DependentUpon>
       <LastGenOutput>HardwareMagazineModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Pencil.png" />
     <Resource Include="Images\Musorka.png" />
     <Resource Include="Images\imagethree.jpg" />
     <Resource Include="Images\Diagramma.png" />

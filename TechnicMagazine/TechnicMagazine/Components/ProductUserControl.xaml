@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TechnicMagazine.Components"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="300">
-    <Grid Background="White" Width="300">
+    <Grid Background="White" Width="300" x:Name="ProductGrid">
         <Border BorderBrush="Black" BorderThickness="1">
             <Grid>
                 <Grid.RowDefinitions>
@@ -16,7 +16,7 @@
                     <RowDefinition Height="55*"></RowDefinition>
                     <RowDefinition Height="55*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Image Source="/Images/imagethree.jpg" Height="180"/>
+                <Image Source="{Binding MainImage}" Height="180"/>
                 <TextBlock x:Name="TitleTb" TextWrapping="Wrap" Grid.Row="1" VerticalAlignment="Center" Margin="5" FontSize="24">Название товара</TextBlock>
                 <StackPanel Grid.Row="2" Orientation="Horizontal">
                     <Image Source="/Images/Red_star.png" Height="45" Margin="5"/>
@@ -28,7 +28,7 @@
                     <TextBlock x:Name="CostTb" VerticalAlignment="Center" Margin="5" FontSize="24" TextDecorations="Strikethrough" Foreground="#FF7C7C7C">цена без скидки</TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="4">
-                    <Button Margin="5" Height="45" Background="#FFE31235" >
+                    <Button Margin="5" Height="45" Background="#FFE31235" Click="KorzinaBtn_Click" >
                         <Image Source="/Images/Telegka.png" Margin="5"/>
                     </Button>
                     <Button Margin="5" Height="45">
@@ -37,7 +37,10 @@
                     <Button Margin="5" Height="45">
                         <Image Source="/Images/Diagramma.png" Margin="5"/>
                     </Button>
-                    <Button Margin="75 0 0 0" Height="45" Click="DeleteBtn_Click">
+                    <Button Margin="25 0 0 0" Height="45" x:Name="RedactBtn" Click="RedactBtn_Click">
+                        <Image Source="/Images/Pencil.png" Margin="5"/>
+                    </Button>
+                    <Button Margin="10 0 0 0" Height="45" x:Name="DeleteBtn" Click="DeleteBtn_Click">
                         <Image Source="/Images/Musorka.png" Margin="5"/>
                     </Button>
                 </StackPanel>
