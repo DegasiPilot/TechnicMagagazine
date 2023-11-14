@@ -22,7 +22,7 @@ namespace TechnicMagazine.Pages
     /// </summary>
     public partial class ProductListPage : Page
     {
-        Zakaz zakaz;
+        public Zakaz zakaz;
 
         public ProductListPage()
         {
@@ -34,6 +34,7 @@ namespace TechnicMagazine.Pages
                 AddBtn.Visibility = Visibility.Hidden;
             }
             Refresh_Filter(null, null);
+            zakaz = new Zakaz();
         }
 
         private void Refresh_Filter(object sender, RoutedEventArgs e)
@@ -91,6 +92,53 @@ namespace TechnicMagazine.Pages
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
             MyNavigation.NextPage(new PageComponent(new AddEditProductPage(new Product()), "Добавить продукт"));
+        }
+
+        private void ZakazBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (!CheckZakaz())
+                return;
+
+            zakaz.ZakazDate = DateTime.Now;
+            zakaz = App.db.Zakaz.Add(zakaz);
+
+            Product_Zakaz prodZak;
+            foreach(ProductZakazUC ProdZakUC in KorzinaWp.Children)
+            {
+                prodZak = new Product_Zakaz();
+                prodZak.ZakazId = zakaz.Id;
+                prodZak.ProductId = ProdZakUC.product.Id;
+                prodZak.Kolvo = ProdZakUC.Kolvo;
+                App.db.Product_Zakaz.Add(prodZak);
+            }
+            App.db.SaveChanges();
+            MessageBox.Show("Заказ успешно оформлен!");
+            ClearZakaz();
+        }
+
+        private bool CheckZakaz()
+        {
+            if(KorzinaWp.Children.Count == 0)
+            {
+                MessageBox.Show("Выберите хотя бы 1 товар!");
+                return false;
+            }
+
+            foreach (ProductZakazUC ProdZakUC in KorzinaWp.Children)
+            {
+                if (ProdZakUC.Kolvo == 0)
+                {
+                    MessageBox.Show("Введите количество для всех товаров!");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private void ClearZakaz()
+        {
+            zakaz = new Zakaz();
+            KorzinaWp.Children.Clear();
         }
     }
 }

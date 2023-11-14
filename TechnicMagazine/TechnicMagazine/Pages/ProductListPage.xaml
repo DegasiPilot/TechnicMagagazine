@@ -43,9 +43,10 @@
             </ScrollViewer>
             <StackPanel Grid.Row="1" Grid.Column="1">
                 <TextBlock TextAlignment="Center" FontSize="20">Корзина</TextBlock>
-                <ScrollViewer>
+                <ScrollViewer Height="400">
                     <WrapPanel HorizontalAlignment="Center" Orientation="Vertical" x:Name="KorzinaWp"></WrapPanel>
                 </ScrollViewer>
+                <Button Margin="5 15 5 0" x:Name="ZakazBtn" Click="ZakazBtn_Click">Заказать</Button>
             </StackPanel>
             <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" Grid.ColumnSpan="2">
                 <Button x:Name="AddBtn" Click="AddBtn_Click" FontSize="20" Margin="5 0">Добавить</Button>

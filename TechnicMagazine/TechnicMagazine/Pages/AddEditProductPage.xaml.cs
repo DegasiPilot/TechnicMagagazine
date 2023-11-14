@@ -52,7 +52,7 @@ namespace TechnicMagazine.Pages
             StringBuilder errors = new StringBuilder();
             if (App.db.Product.Any(x => x.Title == product.Title && (product.Id == 0 || x.Id != product.Id)))
             {
-                errors.AppendLine("Такая услуга уже существует");
+                errors.AppendLine("Такой продукт уже существует");
             }
 
             if (errors.Length > 0)

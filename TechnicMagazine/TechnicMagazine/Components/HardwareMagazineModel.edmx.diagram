@@ -10,8 +10,8 @@
         <EntityTypeShape EntityType="HardwareShopModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="HardwareShopModel.FK_Feedback_Product" ManuallyRouted="false" />
         <EntityTypeShape EntityType="HardwareShopModel.Product_Zakaz" Width="1.5" PointX="3" PointY="4.25" />
-        <EntityTypeShape EntityType="HardwareShopModel.Zakaz" Width="1.5" PointX="0.75" PointY="7.625" />
         <AssociationConnector Association="HardwareShopModel.FK_Product_Zakaz_Product" />
+        <EntityTypeShape EntityType="HardwareShopModel.Zakaz" Width="1.5" PointX="5.375" PointY="0.875" />
         <AssociationConnector Association="HardwareShopModel.FK_Product_Zakaz_Zakaz" />
       </Diagram>
     </edmx:Diagrams>

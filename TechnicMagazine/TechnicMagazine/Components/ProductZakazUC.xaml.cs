@@ -20,12 +20,18 @@ namespace TechnicMagazine.Components
     /// </summary>
     public partial class ProductZakazUC : UserControl
     {
-        int Kolvo;
+        public Product product;
+        public int Kolvo;
+        public double Summ;
 
         public ProductZakazUC(Product _product)
         {
             InitializeComponent();
-            DataContext = _product;
+            product = _product;
+            DataContext = product;
+            CostTb.Text = product.FinalCost.ToString();
+            Kolvo = 1;
+            KolvoTb.Text = Kolvo.ToString();
         }
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
@@ -35,9 +41,10 @@ namespace TechnicMagazine.Components
 
         private void KolvoTb_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (int.TryParse(KolvoTb.Text, out Kolvo))
+            if (int.TryParse(KolvoTb.Text, out Kolvo) && Kolvo != 0)
             {
-                SummTb.Text = (Kolvo * Convert.ToDouble(CostTb.Text)).ToString();
+                Summ = Kolvo * Convert.ToDouble(CostTb.Text);
+                SummTb.Text = Summ.ToString();
             }
             else
             {
