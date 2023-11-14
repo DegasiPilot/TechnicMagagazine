@@ -52,6 +52,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ZakazDate" Type="date" />
+          <Property Name="Status" Type="bit" />
         </EntityType>
         <Association Name="FK_Feedback_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
@@ -207,6 +208,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ZakazDate" Type="DateTime" Precision="0" />
+          <Property Name="Status" Type="Boolean" />
           <NavigationProperty Name="Product_Zakaz" Relationship="HardwareShopModel.FK_Product_Zakaz_Zakaz" FromRole="Zakaz" ToRole="Product_Zakaz" />
         </EntityType>
         <Association Name="FK_Product_Zakaz_Zakaz">
@@ -275,6 +277,7 @@
           <EntitySetMapping Name="Zakaz">
             <EntityTypeMapping TypeName="HardwareShopModel.Zakaz">
               <MappingFragment StoreEntitySet="Zakaz">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ZakazDate" ColumnName="ZakazDate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

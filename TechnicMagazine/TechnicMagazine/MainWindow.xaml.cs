@@ -63,6 +63,12 @@ namespace TechnicMagazine
                     MessageBox.Show("Неправильный пароль!");
                 }
             }
+            SpisokBtn.Visibility = App.IsAdmin ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        private void SpisokBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

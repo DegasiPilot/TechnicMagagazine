@@ -23,6 +23,7 @@
             <Button Margin="0" Click="AdminButton_Click" x:Name="AdminBtn">
                 <TextBlock TextWrapping="Wrap" TextAlignment="Center" x:Name="AdminBtnText">Вкл. режим администратора</TextBlock>
             </Button>
+            <Button x:Name="SpisokBtn" Margin="0 45 0 0" Click="SpisokBtn_Click" Visibility="Hidden">Список заказов</Button>
         </StackPanel>
         <Frame x:Name="MainFrame" Grid.Column="1" NavigationUIVisibility="Hidden" Grid.Row="1"></Frame>
     </Grid>

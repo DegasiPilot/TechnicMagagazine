@@ -18,7 +18,7 @@ namespace TechnicMagazine
     {
         public static HardwareShopEntities db = new HardwareShopEntities();
         public static bool IsAdmin = false;
-        public static ProductListPage ProdList;
+        public static ProductListPage ProdListPage;
         public static WrapPanel KorzinaWp;
     }
 }

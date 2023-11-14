@@ -27,7 +27,7 @@ namespace TechnicMagazine.Pages
         public ProductListPage()
         {
             InitializeComponent();
-            App.ProdList = this;
+            App.ProdListPage = this;
             App.KorzinaWp = KorzinaWp;
             if (App.IsAdmin == false)
             {
@@ -40,17 +40,6 @@ namespace TechnicMagazine.Pages
         private void Refresh_Filter(object sender, RoutedEventArgs e)
         {
             IEnumerable<Product> products = App.db.Product;
-            switch (SortCb.SelectedIndex)
-            {
-                case 0:
-                    break;
-                case 1:
-                    products = products.OrderBy(x => x.CostWithDiscount);
-                    break;
-                case 2:
-                    products = products.OrderByDescending(x => x.CostWithDiscount);
-                    break;
-            }
 
             switch (DiscountFilterCb.SelectedIndex)
             {
@@ -77,6 +66,18 @@ namespace TechnicMagazine.Pages
             if (searchText != "")
             {
                 products = products.Where(x => x.Title.ToLower().Contains(searchText) || x.Description.ToLower().Contains(searchText));
+            }
+
+            switch (SortCb.SelectedIndex)
+            {
+                case 0:
+                    break;
+                case 1:
+                    products = products.OrderBy(x => x.CostWithDiscount);
+                    break;
+                case 2:
+                    products = products.OrderByDescending(x => x.CostWithDiscount);
+                    break;
             }
 
             ProductWrapPanel.Children.Clear();
@@ -139,6 +140,16 @@ namespace TechnicMagazine.Pages
         {
             zakaz = new Zakaz();
             KorzinaWp.Children.Clear();
+        }
+
+        public void CalculateItog()
+        {   
+            double itog = 0;
+            foreach (ProductZakazUC ProdZakUC in KorzinaWp.Children)
+            {
+                    itog += ProdZakUC.Summ;
+            }
+            ItogTb.Text = $"Итог: {itog}";
         }
     }
 }

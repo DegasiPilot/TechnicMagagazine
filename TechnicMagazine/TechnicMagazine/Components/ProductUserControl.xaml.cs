@@ -64,7 +64,16 @@ namespace TechnicMagazine.Components
 
         private void KorzinaBtn_Click(object sender, RoutedEventArgs e)
         {
-            App.ProdList.KorzinaWp.Children.Add(new ProductZakazUC(product));
+            foreach(ProductZakazUC prodZakUC in App.KorzinaWp.Children)
+            {
+                if(prodZakUC.product == product)
+                {
+                    prodZakUC.KolvoTb.Text = (prodZakUC.Kolvo + 1).ToString();
+                    return;
+                }
+            }
+            App.KorzinaWp.Children.Add(new ProductZakazUC(product));
+            App.ProdListPage.CalculateItog();
         }
     }
 }

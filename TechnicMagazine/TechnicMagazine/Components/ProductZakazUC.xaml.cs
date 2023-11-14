@@ -37,6 +37,7 @@ namespace TechnicMagazine.Components
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
             App.KorzinaWp.Children.Remove(this);
+            App.ProdListPage.CalculateItog();
         }
 
         private void KolvoTb_TextChanged(object sender, TextChangedEventArgs e)
@@ -48,8 +49,10 @@ namespace TechnicMagazine.Components
             }
             else
             {
+                Summ = 0;
                 SummTb.Text = "";
             }
+            App.ProdListPage.CalculateItog();
         }
 
         private void KolvoTb_PreviewTextInput(object sender, TextCompositionEventArgs e)
