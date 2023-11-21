@@ -104,6 +104,7 @@
     </Compile>
     <Compile Include="Components\MyNavigation.cs" />
     <Compile Include="Components\partial classes\Product.cs" />
+    <Compile Include="Components\partial classes\Product_Zakaz.cs" />
     <Compile Include="Components\Product.cs">
       <DependentUpon>HardwareMagazineModel.tt</DependentUpon>
     </Compile>

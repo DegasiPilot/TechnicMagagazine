@@ -68,7 +68,7 @@ namespace TechnicMagazine
 
         private void SpisokBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            MyNavigation.NextPage(new PageComponent(new SpisokZakazovPage(), "Список заказов"));
         }
     }
 }

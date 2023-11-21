@@ -6,22 +6,22 @@
              xmlns:local="clr-namespace:TechnicMagazine.Components"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="White">
+    <Grid Background="White" Height="450">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <StackPanel VerticalAlignment="Center">
                 <TextBlock HorizontalAlignment="Right" x:Name="ZakazNumberTb">Номер заказа</TextBlock>
                 <TextBlock HorizontalAlignment="Right" x:Name="ZakazDateTb">Дата заказа</TextBlock>
             </StackPanel>
-            <ListView Margin="15 50">
+            <ListView Margin="15 50" x:Name="ProductLv">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Width="100">Наименование</GridViewColumn>
-                        <GridViewColumn Width="80">Количество</GridViewColumn>
+                        <GridViewColumn Width="100" Header="Наименование" DisplayMemberBinding="{Binding ProductName}"></GridViewColumn>
+                        <GridViewColumn Width="80" Header="Количество" DisplayMemberBinding="{Binding Kolvo}"></GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
             <TextBlock VerticalAlignment="Center">Статус заказа</TextBlock>
-            <CheckBox VerticalAlignment="Center" Margin="5 0 0 0" x:Name="StatusCb"></CheckBox>
+            <CheckBox VerticalAlignment="Center" Margin="5 0 0 0" x:Name="StatusCb" Checked="StatusCb_Checked"></CheckBox>
         </StackPanel>
     </Grid>
 </UserControl>

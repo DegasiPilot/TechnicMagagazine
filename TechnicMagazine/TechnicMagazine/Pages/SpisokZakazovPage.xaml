@@ -9,6 +9,19 @@
       Title="SpisokZakazovPage">
 
     <Grid>
-        <ScrollViewer x:Name="SpisokSv"></ScrollViewer>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="11*"></RowDefinition>
+            <RowDefinition Height="79*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBlock>Сортировать по: сначала </TextBlock>
+            <ComboBox x:Name="SortCb" SelectionChanged="SortCb_SelectionChanged">
+                <ComboBoxItem>Не выполненые</ComboBoxItem>
+                <ComboBoxItem>Выполненые</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+        <ScrollViewer Grid.Row="1">
+            <WrapPanel Orientation="Vertical" x:Name="ZakazWp" HorizontalAlignment="Center"></WrapPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

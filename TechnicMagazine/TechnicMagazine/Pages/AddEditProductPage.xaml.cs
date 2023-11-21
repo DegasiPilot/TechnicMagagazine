@@ -30,8 +30,6 @@ namespace TechnicMagazine.Pages
             InitializeComponent();
             product = _product;
             DataContext = product;
-            //RefreshPhoto();
-            //PhotoUserContol.parentScript = this;
         }
 
         private void EditImageBtn_Click(object sender, RoutedEventArgs e)

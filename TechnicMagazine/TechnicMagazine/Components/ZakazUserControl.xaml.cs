@@ -28,12 +28,16 @@ namespace TechnicMagazine.Components
             zakaz = _zakaz;
             ZakazNumberTb.Text = $"Номер заказа {zakaz.Id}";
             ZakazDateTb.Text = $"Дата заказа {zakaz.ZakazDate}";
-            StatusCb.IsChecked = zakaz.Status;
+            ProductLv.DataContext = App.db.Product_Zakaz.Where(x => x.ZakazId == zakaz.Id).ToList();
+            StatusCb.IsChecked = zakaz.Status == true;
+            StatusCb.IsEnabled = !(zakaz.Status == true);
         }
 
-        private void SetUpGridView()
+        private void StatusCb_Checked(object sender, RoutedEventArgs e)
         {
-
+            zakaz.Status = true;
+            StatusCb.IsEnabled = false;
+            App.db.SaveChanges();
         }
     }
 }

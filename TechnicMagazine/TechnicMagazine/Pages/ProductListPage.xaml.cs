@@ -101,6 +101,7 @@ namespace TechnicMagazine.Pages
                 return;
 
             zakaz.ZakazDate = DateTime.Now;
+            zakaz.Status = false;
             zakaz = App.db.Zakaz.Add(zakaz);
 
             Product_Zakaz prodZak;
