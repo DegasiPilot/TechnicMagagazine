@@ -28,7 +28,7 @@ namespace TechnicMagazine.Components
             zakaz = _zakaz;
             ZakazNumberTb.Text = $"Номер заказа {zakaz.Id}";
             ZakazDateTb.Text = $"Дата заказа {zakaz.ZakazDate}";
-            ProductLv.DataContext = App.db.Product_Zakaz.Where(x => x.ZakazId == zakaz.Id).ToList();
+            ProductLv.ItemsSource = App.db.Product_Zakaz.Where(x => x.ZakazId == zakaz.Id).ToList();
             StatusCb.IsChecked = zakaz.Status == true;
             StatusCb.IsEnabled = !(zakaz.Status == true);
         }

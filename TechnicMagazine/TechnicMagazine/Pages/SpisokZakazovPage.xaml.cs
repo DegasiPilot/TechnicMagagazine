@@ -32,16 +32,24 @@ namespace TechnicMagazine.Pages
 
         private void SortCb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ZakazWp.Children.Clear();
-            List<Zakaz> zakazes = App.db.Zakaz.ToList();
-            if (SortCb.SelectedIndex == 0)
+            try
             {
-                zakazes = zakazes.OrderBy(x =>x.Status).ToList();
+                ZakazWp.Children.Clear();
+                List<Zakaz> zakazes = App.db.Zakaz.ToList();
+                if (SortCb.SelectedIndex == 0)
+                {
+                    zakazes = zakazes.OrderBy(x => x.Status).ToList();
+                }
+                else
+                {
+                    zakazes = zakazes.OrderByDescending(x => x.Status).ToList();
+                }
+                foreach (Zakaz zakaz in zakazes)
+                {
+                    ZakazWp.Children.Add(new ZakazUserControl(zakaz));
+                }
             }
-            else
-            {
-                zakazes = zakazes.OrderByDescending(x => x.Status).ToList();
-            }
+            catch { }
         }
     }
 }

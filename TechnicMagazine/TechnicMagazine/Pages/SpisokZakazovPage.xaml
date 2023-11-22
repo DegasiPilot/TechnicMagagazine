@@ -14,8 +14,8 @@
             <RowDefinition Height="79*"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-            <TextBlock>Сортировать по: сначала </TextBlock>
-            <ComboBox x:Name="SortCb" SelectionChanged="SortCb_SelectionChanged">
+            <TextBlock Margin="15 0 10 0" VerticalAlignment="Center">Сортировать по: сначала</TextBlock>
+            <ComboBox x:Name="SortCb" SelectionChanged="SortCb_SelectionChanged" SelectedIndex="0">
                 <ComboBoxItem>Не выполненые</ComboBoxItem>
                 <ComboBoxItem>Выполненые</ComboBoxItem>
             </ComboBox>
